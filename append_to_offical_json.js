@@ -1,11 +1,10 @@
-import { createWriteStream, readFileSync } from 'fs';
-import { promisify } from 'node:util';
-import stream from 'node:stream';
-import fs from 'node:fs';
-import got from 'got';
-import glob from 'glob';
-import { keyboardDefinitionV2ToVIADefinitionV2 } from 'via-reader';
-import { exit } from 'process';
+const fs = require("fs")
+const got = require("got")
+const glob = require("glob")
+const exit = require("exit").exit
+const stream = require("node:stream")
+const promisify = require("node:util").promisify
+const keyboardDefinitionV2ToVIADefinitionV2 = require("./dist/index.js").keyboardDefinitionV2ToVIADefinitionV2
 
 const viaUrl = "https://www.caniusevia.com/keyboards.v2.json";
 
@@ -22,7 +21,7 @@ async function main(){
     await getFile(viaUrl, './via_official_keyboards.json');
 
     // Load official data
-    let data = JSON.parse(readFileSync('./via_official_keyboards.json').toString());
+    let data = JSON.parse(fs.readFileSync('./via_official_keyboards.json').toString());
 
     let defs = data.definitions;
     let via_vidpids = Object.keys(defs);
@@ -62,7 +61,7 @@ async function main(){
     console.log(`Finished. Added ${mia_vidpids.length} keyboards.`);
 
     // Write final JSON
-    fs.writeFileSync('keyboards.v2.json', JSON.stringify(data));
+    fs.writeFileSync('keyboards.v2.json.append', JSON.stringify(data));
 
     // Clean up
     fs.unlinkSync('via_official_keyboards.json');

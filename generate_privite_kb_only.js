@@ -32,4 +32,4 @@ data.generatedAt = + new Date();
 console.log(`Finished. Added ${kbnum} keyboards.`);
 
 // Write final JSON
-fs.writeFileSync('keyboards.v2.json', JSON.stringify(data));
+fs.writeFileSync('keyboards.v2.json.private', JSON.stringify(data));
