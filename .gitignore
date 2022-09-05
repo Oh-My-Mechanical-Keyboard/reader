@@ -1,3 +1,5 @@
 node_modules/
 .DS_Store
 keyboards.v2.*
+out/*
+keyboards/*
